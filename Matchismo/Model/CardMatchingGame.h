@@ -12,9 +12,17 @@
 
 @interface CardMatchingGame : NSObject
 
+enum {
+    TwoCardGame = 2,
+    ThreeCardGame = 3
+};
+
+typedef NSInteger GameMode;
+
 // designated initializer
 -(id)initWithCardCount:(NSUInteger)count
-             usingDeck:(Deck *)deck;
+             usingDeck:(Deck *)deck
+          withGameMode: (GameMode) gameMode;
 
 -(void)flipCardAtIndex:(NSUInteger)index
     playingTwoCardGame:(BOOL)twoCardGame;

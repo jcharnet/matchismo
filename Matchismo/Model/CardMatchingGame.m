@@ -8,10 +8,13 @@
 
 #import "CardMatchingGame.h"
 
+
+
 @interface CardMatchingGame()
 @property (readwrite, nonatomic) int score;
 @property (strong, nonatomic) NSMutableArray *cards; // of Card
 @property (nonatomic) int currentScore;
+@property (nonatomic) GameMode gameMode;
 @end
 
 @implementation CardMatchingGame
@@ -29,8 +32,9 @@
 }
 
 -(id)initWithCardCount:(NSUInteger)count
-             usingDeck:(Deck *)deck {
-    
+             usingDeck:(Deck *)deck
+          withGameMode: (GameMode) gameMode {
+    NSLog(@"Game Mode: %d", gameMode);
     self = [super init];
     
     if(self) {

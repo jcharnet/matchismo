@@ -20,15 +20,19 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusMsgLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *toggleTwoThreeGame;
-
+@property (nonatomic) GameMode gameMode;
 @end
 
 @implementation CardGameViewController
 
 -(CardMatchingGame *)game {
+    if (!self.gameMode) {
+        self.gameMode = TwoCardGame;
+    }
     if(!_game) {
         _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
-                                                  usingDeck: [[PlayingCardDeck alloc] init]];
+                                                  usingDeck: [[PlayingCardDeck alloc] init]
+                                               withGameMode: self.gameMode];
     }
     
     return _game;
@@ -77,12 +81,18 @@
 
 }
 -(void)initTwoGame {
+    self.gameMode = TwoCardGame;
+    [self initGame];
+}
+-(void)initThreeGame {
+    self.gameMode = ThreeCardGame;
+    [self initGame];
+}
+
+-(void)initGame {
     self.game = nil;
     [self updateUI];
     self.flipCount = 0;
-}
--(void)initThreeGame {
-    
 }
 
 - (IBAction)deal:(UIButton *)sender {
@@ -97,6 +107,8 @@
 - (IBAction)toggleTwoThreeCardGame:(UISwitch *)sender {
     if (sender.isOn) {
         [self initTwoGame];
+    } else {
+        [self initThreeGame];
     }
 }
 
